@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QualCoder — כלי קידוד איכותני מקומי</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        :root {
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+        
+        /* Header */
+        header {
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-inner {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--gray-900);
+        }
+        
+        .logo-icon {
+            width: 20px;
+            height: 20px;
+            background: var(--gray-900);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--gray-500);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            color: var(--gray-900);
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 5rem 2rem;
+            text-align: center;
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gray-900);
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--gray-600);
+            max-width: 540px;
+            margin: 0 auto 2rem;
+        }
+        
+        .hero-actions {
+            display: flex;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+        }
+        
+        .btn-primary {
+            background: var(--gray-900);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--gray-700);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--gray-700);
+            border: 1px solid var(--gray-300);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--gray-50);
+        }
+        
+        /* Main content */
+        .content {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        .section {
+            margin-bottom: 4rem;
+        }
+        
+        .section-label {
+            font-size: 0.6875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--gray-400);
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 2rem;
+        }
+        
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--gray-200);
+            border: 1px solid var(--gray-200);
+        }
+        
+        .feature {
+            background: white;
+            padding: 1.5rem;
+        }
+        
+        .feature-icon {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-100);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+        
+        .feature h3 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.375rem;
+        }
+        
+        .feature p {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+        
+        /* Screenshots/Mockups */
+        .mockups {
+            background: white;
+            border: 1px solid var(--gray-200);
+        }
+        
+        .mockup-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--gray-200);
+            background: var(--gray-50);
+        }
+        
+        .mockup-tab {
+            padding: 0.875rem 1.25rem;
+            font-size: 0.8125rem;
+            font-weight: 500;
+            color: var(--gray-500);
+            background: none;
+            border: none;
+            cursor: pointer;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -1px;
+            font-family: inherit;
+        }
+        
+        .mockup-tab:hover {
+            color: var(--gray-700);
+        }
+        
+        .mockup-tab.active {
+            color: var(--gray-900);
+            border-bottom-color: var(--gray-900);
+            background: white;
+        }
+        
+        .mockup-panel {
+            display: none;
+            padding: 1.5rem;
+            background: var(--gray-100);
+        }
+        
+        .mockup-panel.active {
+            display: block;
+        }
+        
+        .mockup-frame {
+            background: white;
+            border: 1px solid var(--gray-200);
+        }
+        
+        .mockup-header {
+            background: var(--gray-50);
+            border-bottom: 1px solid var(--gray-200);
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+        
+        .mockup-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--gray-300);
+        }
+        
+        .mockup-body {
+            padding: 1.5rem;
+            font-size: 0.8125rem;
+        }
+        
+        /* Dashboard mockup */
+        .mock-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .mock-stat {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            padding: 1rem;
+        }
+        
+        .mock-stat-value {
+            font-size: 1.5rem;
+            font-weight: 300;
+            color: var(--gray-900);
+        }
+        
+        .mock-stat-label {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+        
+        .mock-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.75rem;
+        }
+        
+        .mock-table th {
+            text-align: right;
+            padding: 0.625rem 0.75rem;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            font-weight: 600;
+            color: var(--gray-500);
+            text-transform: uppercase;
+            font-size: 0.625rem;
+            letter-spacing: 0.05em;
+        }
+        
+        .mock-table td {
+            padding: 0.625rem 0.75rem;
+            border: 1px solid var(--gray-200);
+            color: var(--gray-700);
+        }
+        
+        .mock-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.125rem 0.5rem;
+            font-size: 0.625rem;
+            font-weight: 500;
+        }
+        
+        .mock-status.new {
+            background: #ecfdf5;
+            color: #059669;
+            border: 1px solid #a7f3d0;
+        }
+        
+        .mock-status.loaded {
+            background: var(--gray-50);
+            color: var(--gray-600);
+            border: 1px solid var(--gray-200);
+        }
+        
+        /* Document viewer mockup */
+        .mock-viewer {
+            display: grid;
+            grid-template-columns: 1fr 240px;
+            gap: 1rem;
+            min-height: 300px;
+        }
+        
+        .mock-doc {
+            background: white;
+            border: 1px solid var(--gray-200);
+            padding: 1.5rem;
+            line-height: 1.8;
+            color: var(--gray-700);
+        }
+        
+        .mock-highlight {
+            background: #fef3c7;
+            border-bottom: 2px solid #d97706;
+            padding: 0 2px;
+        }
+        
+        .mock-highlight.blue {
+            background: #dbeafe;
+            border-bottom-color: #2563eb;
+        }
+        
+        .mock-highlight.red {
+            background: #fee2e2;
+            border-bottom-color: #dc2626;
+        }
+        
+        .mock-sidebar {
+            background: white;
+            border: 1px solid var(--gray-200);
+            padding: 1rem;
+        }
+        
+        .mock-sidebar-title {
+            font-size: 0.625rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--gray-400);
+            margin-bottom: 0.75rem;
+        }
+        
+        .mock-labels {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.375rem;
+            margin-bottom: 1rem;
+        }
+        
+        .mock-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 0.6875rem;
+            font-weight: 500;
+            border: 1px solid var(--gray-200);
+        }
+        
+        .mock-label-dot {
+            width: 6px;
+            height: 6px;
+        }
+        
+        .mock-annotation {
+            padding: 0.75rem;
+            background: var(--gray-50);
+            margin-bottom: 0.5rem;
+            border-right: 2px solid var(--gray-900);
+            font-size: 0.6875rem;
+        }
+        
+        /* Installation */
+        .install-section {
+            background: white;
+            border: 1px solid var(--gray-200);
+            padding: 2rem;
+        }
+        
+        .install-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+        
+        .install-step {
+            text-align: center;
+        }
+        
+        .step-number {
+            width: 32px;
+            height: 32px;
+            background: var(--gray-900);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .install-step h3 {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--gray-900);
+            margin-bottom: 0.5rem;
+        }
+        
+        .install-step p {
+            font-size: 0.8125rem;
+            color: var(--gray-500);
+        }
+        
+        .install-step code {
+            display: inline-block;
+            background: var(--gray-100);
+            padding: 0.25rem 0.5rem;
+            font-family: 'SF Mono', Consolas, monospace;
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            direction: ltr;
+        }
+        
+        /* Download box */
+        .download-box {
+            background: var(--gray-900);
+            color: white;
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .download-box h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .download-box p {
+            color: var(--gray-400);
+            margin-bottom: 1.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.875rem 2rem;
+            background: white;
+            color: var(--gray-900);
+            font-size: 0.9375rem;
+            font-weight: 600;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .download-btn:hover {
+            background: var(--gray-100);
+        }
+        
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            color: var(--gray-400);
+            font-size: 0.8125rem;
+            border-top: 1px solid var(--gray-200);
+            background: white;
+            margin-top: 4rem;
+        }
+        
+        footer a {
+            color: var(--gray-600);
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .features-grid, .install-steps {
+                grid-template-columns: 1fr;
+            }
+            
+            .mock-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .mock-viewer {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-inner">
+            <div class="logo">
+                <div class="logo-icon"></div>
+                QualCoder
+            </div>
+            <nav class="nav-links">
+                <a href="#features">תכונות</a>
+                <a href="#preview">תצוגה מקדימה</a>
+                <a href="#install">התקנה</a>
+            </nav>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <h1>קידוד איכותני. מקומי ופרטי.</h1>
+        <p>כלי פשוט ויעיל לתיוג וניתוח טקסטים איכותניים. כל הנתונים נשארים במחשב שלך.</p>
+        <div class="hero-actions">
+            <a href="#install" class="btn btn-primary">
+                ↓ הורדה והתקנה
+            </a>
+            <a href="#preview" class="btn btn-secondary">
+                תצוגה מקדימה
+            </a>
+        </div>
+    </section>
+    
+    <div class="content">
+        <!-- Features -->
+        <section class="section" id="features">
+            <div class="section-label">תכונות</div>
+            <h2 class="section-title">כל מה שצריך לניתוח איכותני</h2>
+            
+            <div class="features-grid">
+                <div class="feature">
+                    <div class="feature-icon">🏷️</div>
+                    <h3>תיוג צבעוני</h3>
+                    <p>סמנו קטעי טקסט ותייגו אותם בתוויות מותאמות אישית עם צבעים לבחירתכם.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📝</div>
+                    <h3>הערות ופתקים</h3>
+                    <p>הוסיפו הערות לכל תיוג — תגובה על הטקסט או פתק לזכירה.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔄</div>
+                    <h3>תיוגים חופפים</h3>
+                    <p>אותו קטע טקסט יכול לקבל מספר תוויות. שום מחשבה לא הולכת לאיבוד.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📊</div>
+                    <h3>ייצוא לאקסל</h3>
+                    <p>כל התיוגים בטבלה מסודרת עם הטקסט המקורי, לחיפוש והשוואה קלים.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📁</div>
+                    <h3>ניטור תיקייה</h3>
+                    <p>בחרו תיקייה ורעננו — קבצים חדשים מזוהים אוטומטית לטעינה.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h3>פרטיות מלאה</h3>
+                    <p>הכל רץ מקומית במחשב. שום דבר לא עולה לענן או לשרת חיצוני.</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Screenshots -->
+        <section class="section" id="preview">
+            <div class="section-label">תצוגה מקדימה</div>
+            <h2 class="section-title">ממשק פשוט ונקי</h2>
+            
+            <div class="mockups">
+                <div class="mockup-tabs">
+                    <button class="mockup-tab active" onclick="showTab('dashboard')">לוח בקרה</button>
+                    <button class="mockup-tab" onclick="showTab('viewer')">צפייה במסמך</button>
+                    <button class="mockup-tab" onclick="showTab('export')">ייצוא</button>
+                </div>
+                
+                <!-- Dashboard -->
+                <div class="mockup-panel active" id="panel-dashboard">
+                    <div class="mockup-frame">
+                        <div class="mockup-header">
+                            <div class="mockup-dot"></div>
+                            <div class="mockup-dot"></div>
+                            <div class="mockup-dot"></div>
+                        </div>
+                        <div class="mockup-body">
+                            <div class="mock-stats">
+                                <div class="mock-stat">
+                                    <div class="mock-stat-value">6</div>
+                                    <div class="mock-stat-label">מסמכים</div>
+                                </div>
+                                <div class="mock-stat">
+                                    <div class="mock-stat-value">48</div>
+                                    <div class="mock-stat-label">תיוגים</div>
+                                </div>
+                                <div class="mock-stat">
+                                    <div class="mock-stat-value">6</div>
+                                    <div class="mock-stat-label">תוויות</div>
+                                </div>
+                                <div class="mock-stat">
+                                    <div class="mock-stat-value">4</div>
+                                    <div class="mock-stat-label">מתויגים</div>
+                                </div>
+                            </div>
+                            
+                            <table class="mock-table">
+                                <thead>
+                                    <tr>
+                                        <th>קובץ</th>
+                                        <th>גודל</th>
+                                        <th>עודכן</th>
+                                        <th>סטטוס</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>interview_participant_01.docx</td>
+                                        <td>45 KB</td>
+                                        <td>07.01.2026</td>
+                                        <td><span class="mock-status loaded">✓ נטען</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>interview_participant_02.docx</td>
+                                        <td>38 KB</td>
+                                        <td>07.01.2026</td>
+                                        <td><span class="mock-status loaded">✓ נטען</span></td>
+                                    </tr>
+                                    <tr style="background: #ecfdf5;">
+                                        <td>interview_participant_03.docx</td>
+                                        <td>52 KB</td>
+                                        <td>08.01.2026</td>
+                                        <td><span class="mock-status new">● חדש</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Document Viewer -->
+                <div class="mockup-panel" id="panel-viewer">
+                    <div class="mockup-frame">
+                        <div class="mockup-header">
+                            <div class="mockup-dot"></div>
+                            <div class="mockup-dot"></div>
+                            <div class="mockup-dot"></div>
+                        </div>
+                        <div class="mockup-body">
+                            <div class="mock-viewer">
+                                <div class="mock-doc">
+                                    <p style="color: var(--gray-400); margin-bottom: 1rem; font-size: 0.75rem;">ראיון עם משתתף/ת 01 — 15.12.2025</p>
+                                    <p style="margin-bottom: 0.75rem;"><strong>שאלה:</strong> ספר/י לי על החוויה שלך במערכת.</p>
+                                    <p style="margin-bottom: 1rem;">
+                                        <strong>תשובה:</strong> 
+                                        <span class="mock-highlight">הרגשתי שהמערכת לא תומכת בי מספיק</span>. 
+                                        היו הרבה רגעים שבהם הייתי צריכה עזרה.
+                                    </p>
+                                    <p style="margin-bottom: 0.75rem;"><strong>שאלה:</strong> האם היה רגע מסוים שבו הרגשת שינוי?</p>
+                                    <p>
+                                        <strong>תשובה:</strong> כן. 
+                                        <span class="mock-highlight blue">זה היה הרגע שבו הבנתי שאני צריכה לעשות שינוי</span>. 
+                                        <span class="mock-highlight red">מצד אחד אמרו לי להיות עצמאית, מצד שני בדקו כל החלטה</span>.
+                                    </p>
+                                </div>
+                                <div class="mock-sidebar">
+                                    <div class="mock-sidebar-title">תוויות</div>
+                                    <div class="mock-labels">
+                                        <span class="mock-label"><span class="mock-label-dot" style="background: #1a1a1a;"></span> נושא מרכזי</span>
+                                        <span class="mock-label"><span class="mock-label-dot" style="background: #2563eb;"></span> ציטוט</span>
+                                        <span class="mock-label"><span class="mock-label-dot" style="background: #dc2626;"></span> סתירה</span>
+                                    </div>
+                                    <div class="mock-sidebar-title">תיוגים (3)</div>
+                                    <div class="mock-annotation">הרגשתי שהמערכת לא תומכת...</div>
+                                    <div class="mock-annotation" style="border-color: #2563eb;">זה היה הרגע שבו הבנתי...</div>
+                                    <div class="mock-annotation" style="border-color: #dc2626;">מצד אחד אמרו לי...</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Export -->
+                <div class="mockup-panel" id="panel-export">
+                    <div class="mockup-frame">
+                        <div class="mockup-header">
+                            <div class="mockup-dot"></div>
+                            <div class="mockup-dot"></div>
+                            <div class="mockup-dot"></div>
+                        </div>
+                        <div class="mockup-body">
+                            <table class="mock-table">
+                                <thead>
+                                    <tr style="background: var(--gray-900); color: white;">
+                                        <th style="background: var(--gray-900); color: white; border-color: var(--gray-700);">#</th>
+                                        <th style="background: var(--gray-900); color: white; border-color: var(--gray-700);">מסמך</th>
+                                        <th style="background: var(--gray-900); color: white; border-color: var(--gray-700);">תווית</th>
+                                        <th style="background: var(--gray-900); color: white; border-color: var(--gray-700);">טקסט מסומן</th>
+                                        <th style="background: var(--gray-900); color: white; border-color: var(--gray-700);">הערה</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>interview_01.docx</td>
+                                        <td><span class="mock-label"><span class="mock-label-dot" style="background: #1a1a1a;"></span> נושא מרכזי</span></td>
+                                        <td>הרגשתי שהמערכת לא תומכת בי מספיק</td>
+                                        <td>חוסר תמיכה - נושא חוזר</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>interview_01.docx</td>
+                                        <td><span class="mock-label"><span class="mock-label-dot" style="background: #2563eb;"></span> ציטוט</span></td>
+                                        <td>זה היה הרגע שבו הבנתי שאני צריכה לעשות שינוי</td>
+                                        <td>—</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>interview_01.docx</td>
+                                        <td><span class="mock-label"><span class="mock-label-dot" style="background: #dc2626;"></span> סתירה</span></td>
+                                        <td>מצד אחד אמרו לי להיות עצמאית, מצד שני בדקו כל החלטה</td>
+                                        <td>דיסוננס בין מסרים</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Installation -->
+        <section class="section" id="install">
+            <div class="section-label">התקנה</div>
+            <h2 class="section-title">התחילו בשלושה צעדים</h2>
+            
+            <div class="install-section">
+                <div class="install-steps">
+                    <div class="install-step">
+                        <div class="step-number">1</div>
+                        <h3>הורידו ופרקו</h3>
+                        <p>הורידו את קובץ ה-ZIP ופרקו אותו לתיקייה במחשב</p>
+                    </div>
+                    <div class="install-step">
+                        <div class="step-number">2</div>
+                        <h3>הפעילו</h3>
+                        <p>לחצו פעמיים על קובץ ההפעלה</p>
+                        <code>START-Windows.bat</code>
+                        <p style="margin-top: 0.25rem;">או</p>
+                        <code>START-Mac-Linux.sh</code>
+                    </div>
+                    <div class="install-step">
+                        <div class="step-number">3</div>
+                        <h3>הכניסו מסמכים</h3>
+                        <p>שימו את הקבצים בתיקיית data והתחילו לתייג</p>
+                    </div>
+                </div>
+                
+                <div class="download-box">
+                    <h3>מוכנים להתחיל?</h3>
+                    <p>הקובץ כולל את כל מה שצריך. ההתקנה אוטומטית.</p>
+                    <a href="qualitative-coder.zip" download class="download-btn">
+                        ↓ הורדת QualCoder
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Supported formats -->
+        <section class="section">
+            <div class="section-label">פורמטים נתמכים</div>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <span style="padding: 0.5rem 1rem; background: white; border: 1px solid var(--gray-200); font-size: 0.875rem;">Word (.docx)</span>
+                <span style="padding: 0.5rem 1rem; background: white; border: 1px solid var(--gray-200); font-size: 0.875rem;">PDF (.pdf)</span>
+                <span style="padding: 0.5rem 1rem; background: white; border: 1px solid var(--gray-200); font-size: 0.875rem;">Text (.txt)</span>
+                <span style="padding: 0.5rem 1rem; background: white; border: 1px solid var(--gray-200); font-size: 0.875rem;">Markdown (.md)</span>
+                <span style="padding: 0.5rem 1rem; background: white; border: 1px solid var(--gray-200); font-size: 0.875rem;">RTF (.rtf)</span>
+            </div>
+        </section>
+    </div>
+    
+    <footer>
+        <p>QualCoder — כלי קידוד איכותני מקומי</p>
+        <p style="margin-top: 0.5rem;">נבנה על ידי <a href="https://twitter.com/shareyourgold" target="_blank">@shareyourgold</a></p>
+    </footer>
+    
+    <script>
+        function showTab(tabName) {
+            // Hide all panels
+            document.querySelectorAll('.mockup-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.mockup-tab').forEach(t => t.classList.remove('active'));
+            
+            // Show selected
+            document.getElementById('panel-' + tabName).classList.add('active');
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
